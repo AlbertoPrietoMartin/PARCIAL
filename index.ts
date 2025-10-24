@@ -89,3 +89,43 @@ app.delete("/lasPelis/:id", (req, res)=>{
 
 app.listen(3000, () => console.log("Servidor en http://localhost:3000"));
 
+const testAPI = async()=>{
+
+    //obtener todos las pelis de la lista
+    const miPromesa = (await(axios.get<LD[]>("http://localhost:3000/lasPelis/"))).data;
+    console.log(miPromesa);
+
+    //creamos una nueva
+    const misPelis : LD = {
+        id: 3, 
+        filmName: "SUPERMAN", 
+        rotationType: `CLV`, 
+        region: "Nebrija" ,
+        lengthMinutes: 150,
+        videoFormat: `NTSC`,
+    }
+
+    //añadimos
+    axios.post(`http://localhost:3000/lasPelis/`, misPelis);
+
+    //volver a comprobar que salen todas mas la nueva
+    const miPromesa2 = (await(axios.get<LD[]>("http://localhost:3000/lasPelis/"))).data;
+    console.log(miPromesa2);
+
+    //comprobamos si tiene el mismo nombre
+    const condicion = miPromesa2.find((elem)=>{
+        if(elem.filmName === misPelis.filmName){
+            return elem;
+        }
+    })
+
+    //para identificar que es el mismo elemento por lo cual, borrarlo mediante su mismo id
+    const miPromesa3 = (await (axios.delete<LD[]>(`http://localhost:3000/lasPelis/${condicion?.id}`))).data;
+    console.log(miPromesa3);
+
+    //mostramos la final una ultima vez
+    const miPromesa4 = (await(axios.get<LD[]>("http://localhost:3000/lasPelis/"))).data;
+    console.log(miPromesa4);
+}
+
+setTimeout((testAPI), 1000);
