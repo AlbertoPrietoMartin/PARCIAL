@@ -6,15 +6,27 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "ts-node Index.js",
+    "start": "ts-node Index.ts",
     "dev": "nodemon --exec ts-node Index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.4",
     "@types/node": "^24.8.1",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "cors": "^2.8.5",
+    "cros": "^1.1.0",
+    "express": "^5.1.0",
+    "node": "^22.21.0"
   }
 }
